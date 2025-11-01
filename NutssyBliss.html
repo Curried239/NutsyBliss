@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nutsy Bliss - Your Daily Dose of Delight</title>
+
+    <!-- Modern fonts just for the "About Us" area + UI bits -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --brand: #89d3dc; /* Aqua accent */
+        --brand-dark: #1aa7b5; /* Deep aqua */
+        --ink: #222; /* Charcoal text */
+        --bg: #f9fafb; /* Soft off-white */
+        --card: #ffffff;
+      }
+
+      /* Reset & Base */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        scroll-behavior: smooth;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* Header */
+      header {
+        text-align: center;
+        padding: 2rem 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--brand) 0%,
+          var(--brand-dark) 100%
+        );
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+      header img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+      header h1 {
+        font-size: 2.2rem;
+        margin: 0.5rem 0 0.25rem;
+        letter-spacing: 0.5px;
+      }
+      .tagline {
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      /* Nav */
+      nav {
+        margin-top: 1rem;
+      }
+      nav a {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        margin: 0 0.3rem;
+        border-radius: 30px;
+        transition: background 0.3s;
+      }
+      nav a:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        height: 280px; /* smaller height */
+        border-radius: 20px;
+        overflow: hidden;
+        margin: 2rem auto;
+        max-width: 1000px;
+        background: #f2f7f8; /* soft backdrop behind images */
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+      /* SLIDER - corrected and robust */
+      .slides {
+        display: flex;
+        height: 100%;
+        /* no fixed width here — each child will be exactly the hero width */
+        animation: slide 16s infinite ease-in-out;
+      }
+
+      .slides img {
+        /* make each image take exactly the hero's width */
+        flex: 0 0 100%;
+        width: 100%;
+        height: auto;
+        max-height: 260px; /* control visible height */
+        object-fit: contain;
+        background: #fff;
+        padding: 10px;
+        border-radius: 12px;
+        display: block; /* avoids inline-image whitespace issues */
+      }
+
+      /* Move by whole slides: 0, -100%, -200%, -300% */
+      @keyframes slide {
+        0%,
+        10% {
+          transform: translateX(0%);
+        } /* 1st slide visible */
+        25%,
+        35% {
+          transform: translateX(-100%);
+        } /* 2nd slide */
+        50%,
+        60% {
+          transform: translateX(-200%);
+        } /* 3rd slide */
+        75%,
+        85% {
+          transform: translateX(-300%);
+        } /* 4th slide */
+        100% {
+          transform: translateX(0%);
+        } /* loop back */
+      }
+
+      .hero .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.3),
+          transparent 70%
+        );
+      }
+      .hero .headline {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align: center;
+        font-weight: 600;
+        font-size: clamp(1.2rem, 2vw, 1.8rem);
+        max-width: 600px;
+        line-height: 1.4;
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Section */
+      .section {
+        max-width: 1100px;
+        margin: 3rem auto;
+        padding: 2rem 1.25rem;
+        text-align: center;
+      }
+      .section h2 {
+        font-size: 2rem;
+        color: var(--brand-dark);
+        margin-bottom: 1rem;
+      }
+
+      /* Cards (Products & About) */
+      .card {
+        background: var(--card);
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      }
+      .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+      }
+      .card .card-content {
+        padding: 1rem 1.25rem;
+      }
+      .card .card-content h3 {
+        margin: 0.25rem 0;
+        color: var(--brand-dark);
+      }
+
+      /* Products Grid */
+      .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      /* Testimonials */
+      .testimonials {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+      .testimonial {
+        background: var(--card);
+        padding: 1.5rem;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        font-style: italic;
+      }
+      .testimonial strong {
+        display: block;
+        margin-top: 0.75rem;
+        color: var(--brand-dark);
+        font-style: normal;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.9rem 1.8rem;
+        border-radius: 999px;
+        color: #fff;
+        font-weight: 600;
+        background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+        box-shadow: 0 6px 14px rgba(26, 167, 181, 0.3);
+        transition: all 0.3s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+        box-shadow: 0 10px 20px rgba(26, 167, 181, 0.4);
+      }
+
+      /* Floating CTA */
+      .floating-cta {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--brand-dark);
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="logo.jpeg" alt="Nutsy Bliss logo" />
+      <h1>Nutsy Bliss</h1>
+      <p class="tagline">Your Daily Dose of Delight</p>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO / SLIDER (smaller) -->
+    <section class="hero">
+      <div class="slides">
+        <img src="DryFruitCrunch.jpeg" alt="Dry Fruit Crunch" />
+        <img src="PistaDelight.jpeg" alt="Pista Delight" />
+        <img src="ProteinCrunch.jpeg" alt="Protein Crunch" />
+        <img src="KhajurChikki.jpeg" alt="Khajur Chikki" />
+      </div>
+      <div class="overlay"></div>
+      <div class="headline">
+        “Experience the art of indulgence where purity, taste and health unite.”
+      </div>
+    </section>
+
+    <section id="about" class="section about reveal">
+      <h2>About Us</h2>
+      <div class="card">
+        <p>
+          Nutsy Bliss offers premium, handmade treats crafted from the finest
+          nuts, seeds, dates, and pure A2 ghee. Our sugar-free,
+          preservative-free delights are thoughtfully made to combine health and
+          indulgence. From protein-rich snacks to luxurious dry fruit sweets,
+          every bite is a celebration of wholesome goodness.
+        </p>
+      </div>
+    </section>
+
+    <section id="products" class="section reveal">
+      <h2>Our Products</h2>
+      <div class="products">
+        <div class="card">
+          <img src="DryFruitCrunch.jpeg" alt="Dry Fruit Crunch" />
+          <div class="card-content">
+            <h3>Dry Fruit Crunch</h3>
+            <p>Rich bars packed with nuts, seeds, and dates.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="KhajurChikki.jpeg" alt="Khajur Chikki" />
+          <div class="card-content">
+            <h3>Khajur Chikki</h3>
+            <p>A delightful chikki made with dates, nuts, and seeds.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="ProteinCrunch.jpeg" alt="Protein Crunch" />
+          <div class="card-content">
+            <h3>Protein Crunch</h3>
+            <p>A protein-packed snack with nuts, seeds, and A2 ghee.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="section reveal">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>
+            “The Pista Delight's are heavenly and guilt-free. Perfect for
+            festivals!”
+          </p>
+          <strong>— Mary Serena.</strong>
+        </div>
+        <div class="testimonial">
+          <p>
+            “Nutsy Bliss Protein Crunch are my go-to energy bites after
+            workouts.”
+          </p>
+          <strong>— Raymond.</strong>
+        </div>
+        <div class="testimonial">
+          <p>“Finally, a healthy sweet that actually tastes amazing!”</p>
+          <strong>— Anicka Thomas.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact reveal">
+      <h2>Contact Us</h2>
+      <p>
+        📱 WhatsApp:
+        <a href="https://wa.me/917995691574" target="_blank">+91 7995691574</a>
+      </p>
+      <p>
+        📧 Email: <a href="mailto:nutsybliss@gmail.com">nutsybliss@gmail.com</a>
+      </p>
+      <p>
+        📷 Instagram:
+        <a href="https://instagram.com/nutsybliss" target="_blank"
+          >@nutsybliss</a
+        >
+      </p>
+      <a
+        class="btn"
+        href="https://wa.me/917995691574"
+        target="_blank"
+        rel="noopener"
+        >Order Now</a
+      >
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Nutsy Bliss. All rights reserved.</p>
+    </footer>
+
+    <!-- Floating CTA (quick WhatsApp) -->
+    <div class="floating-cta">
+      <a
+        class="btn"
+        href="https://wa.me/917995691574"
+        target="_blank"
+        rel="noopener"
+        >Chat on WhatsApp</a
+      >
+    </div>
+
+    <!-- Reveal-on-scroll script -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
